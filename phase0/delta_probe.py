@@ -9,7 +9,9 @@ For every (original, transformed) pair, computes:
 
   B. pixel_delta_size — decode both images to RGB pixel buffers with
      Pillow, take the raw byte difference of the pixel buffers, and
-     compress that difference with zlib.
+     compress that difference with zlib. Any dimension-mismatch
+     handling for a pair is reported separately by
+     pixel_dimension_note() and recorded in run()'s per-pair results.
 
 Then reports median and p90 of delta_size / original_size, broken down
 by transformation type, for both raw and pixel deltas.
@@ -135,22 +137,20 @@ def raw_delta_size(a: Path, b: Path) -> int:
     )
 
 
-def pixel_delta_size(a: Path, b: Path) -> tuple[int, str]:
+def pixel_delta_size(a: Path, b: Path) -> int:
     """Decode both images to raw RGB buffers using Pillow, compute the
     raw byte difference, compress it with zlib, and return the
     compressed size.
-
-    Returns (compressed_size, note) where note explains dimension
-    handling when applicable ("" if dimensions matched natively).
 
     Dimension mismatch handling: this experiment does NOT silently
     resize one image to match the other, since that would inject an
     extra transformation into the measurement and bias the delta
     downward. Instead, when dimensions differ (e.g. resize, crop), the
     two pixel buffers are compared over their overlapping top-left
-    region only, and the note field records the mismatch and the
-    region actually compared. This makes the limitation visible in the
-    output rather than hidden.
+    region only. Callers that need to know whether/how a mismatch was
+    handled for a given pair should use pixel_dimension_note(a, b);
+    this function's return type is kept to the planned int-only
+    signature.
     """
     img_a = Image.open(a).convert("RGB")
     img_b = Image.open(b).convert("RGB")
@@ -158,20 +158,40 @@ def pixel_delta_size(a: Path, b: Path) -> tuple[int, str]:
     arr_a = np.asarray(img_a, dtype=np.uint8)
     arr_b = np.asarray(img_b, dtype=np.uint8)
 
-    note = ""
     if arr_a.shape != arr_b.shape:
         h = min(arr_a.shape[0], arr_b.shape[0])
         w = min(arr_a.shape[1], arr_b.shape[1])
-        note = (
-            f"dimension mismatch {arr_a.shape[:2]} vs {arr_b.shape[:2]}; "
-            f"compared overlapping region {(h, w)} only"
-        )
         arr_a = arr_a[:h, :w, :]
         arr_b = arr_b[:h, :w, :]
 
     diff = (arr_a.astype(np.int16) - arr_b.astype(np.int16)).astype(np.int8)
     compressed = zlib.compress(diff.tobytes(), level=9)
-    return len(compressed), note
+    return len(compressed)
+
+
+def pixel_dimension_note(a: Path, b: Path) -> str:
+    """Describe how pixel_delta_size handled a dimension mismatch
+    between a and b, without redoing the diff/compress work.
+
+    Returns "" if dimensions matched natively. This is a lightweight,
+    size-only check (Image.size, no full decode-to-array), kept
+    separate from pixel_delta_size so that function's signature and
+    return value stay exactly the planned `-> int`; the mismatch
+    information is surfaced by the caller (run()) instead.
+    """
+    with Image.open(a) as img_a, Image.open(b) as img_b:
+        size_a = img_a.size  # (width, height)
+        size_b = img_b.size
+
+    if size_a == size_b:
+        return ""
+
+    h = min(size_a[1], size_b[1])
+    w = min(size_a[0], size_b[0])
+    return (
+        f"dimension mismatch (h,w) {(size_a[1], size_a[0])} vs {(size_b[1], size_b[0])}; "
+        f"compared overlapping region {(h, w)} only"
+    )
 
 
 def summarize(results: list[dict]) -> None:
@@ -284,10 +304,10 @@ def run(dir_originals: Path, dir_transformed: Path, out_path: Path | None) -> li
             row["error"] = f"raw_delta: {e}"
 
         try:
-            pd, note = pixel_delta_size(orig, trans)
+            pd = pixel_delta_size(orig, trans)
             row["pixel_delta_size"] = pd
             row["pixel_ratio"] = pd / orig_size
-            row["pixel_note"] = note
+            row["pixel_note"] = pixel_dimension_note(orig, trans)
         except Exception as e:  # noqa: BLE001
             row["error"] = (row["error"] + " | " if row["error"] else "") + f"pixel_delta: {e}"
 
