@@ -216,3 +216,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Phase 0 generated test images (regenerable via make_test_pairs.py --synthetic)
+phase0/data/
