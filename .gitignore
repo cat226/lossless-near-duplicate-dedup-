@@ -224,6 +224,10 @@ phase0/data/
 phase2/data/
 phase2/artifacts/
 
+# Phase 3 acquired images (local research use only; publish manifests, not images)
+phase3/data/
+
 # Phase 2b generated fresh families and cached signatures (regenerable)
 phase2b/data/
 phase2b/artifacts/
+phase3/artifacts/
