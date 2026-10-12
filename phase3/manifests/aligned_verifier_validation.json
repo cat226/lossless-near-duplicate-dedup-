@@ -1,0 +1,88 @@
+{
+ "aligned_distance_quantiles_false_ok": [
+  0.7849225617413144,
+  0.7849225617413144,
+  0.7849225617413144
+ ],
+ "aligned_distance_quantiles_true_ok": [
+  0.318255227597611,
+  0.3562575290605171,
+  0.5041994195204845
+ ],
+ "auc_aligned_failures_as_worst": 1.0,
+ "auc_phase1c_distance": 0.8571371882086167,
+ "by_type": {
+  "OT:bright": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.3308190239800347,
+   "pairs": 40,
+   "phase1c_pass_rate": 1.0
+  },
+  "OT:crop": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.3400117042467584,
+   "pairs": 40,
+   "phase1c_pass_rate": 0.75
+  },
+  "OT:jpegq50": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.3808720906575521,
+   "pairs": 40,
+   "phase1c_pass_rate": 1.0
+  },
+  "OT:png": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.001007080078125,
+   "pairs": 40,
+   "phase1c_pass_rate": 1.0
+  },
+  "OT:resize": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.3519253200954861,
+   "pairs": 40,
+   "phase1c_pass_rate": 1.0
+  },
+  "OT:rotate": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.3575092290186424,
+   "pairs": 40,
+   "phase1c_pass_rate": 0.2
+  },
+  "TT": {
+   "alignment_failures": 0,
+   "alignment_ok": 1.0,
+   "median_aligned_distance": 0.3632732293892148,
+   "pairs": 600,
+   "phase1c_pass_rate": 0.7866666666666666
+  }
+ },
+ "config": {
+  "min_inliers": 12,
+  "min_overlap_fraction": 0.25,
+  "orb_fast_threshold": 5,
+  "orb_nfeatures": 1000,
+  "ransac_confidence": 0.99,
+  "ransac_max_iters": 2000,
+  "ransac_threshold": 3.0,
+  "scale_range": [
+   0.25,
+   4.0
+  ],
+  "seed": 12345,
+  "work_size": 512
+ },
+ "data": "synthetic Phase 2 families 1-40 only (280 images, byte-identical to the Phase 2 manifest)",
+ "failure_reasons_true": {},
+ "false_pairs_alignment_ok": 0.0011904761904761906,
+ "images_match_phase2_manifest": true,
+ "n_false_pairs": 840,
+ "n_true_pairs": 840,
+ "true_pairs_alignment_ok": 1.0,
+ "true_pairs_passing_phase1c_tau": 0.7976190476190477
+}
