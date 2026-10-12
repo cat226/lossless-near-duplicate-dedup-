@@ -1,0 +1,80 @@
+{
+ "hardware": {
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+  "logical_cpus": 12,
+  "python": "3.12.10",
+  "numpy": "2.5.1",
+  "pillow": "12.3.0",
+  "parallelism": "none (single process, BLAS threads pinned to 1)"
+ },
+ "projection_note": "'projected_*' values are projections from a 200-pair sample (seed 12345), not measurements of the whole candidate set.",
+ "sizes": {
+  "40": {
+   "n": 280,
+   "all_pairs": 39060,
+   "candidate_pairs": 1212,
+   "cheap_stage_seconds": 0.00458710000384599,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 5077.8,
+   "measured_phase1c_all_pairs_seconds": 5079.1731483,
+   "sample_size": 200,
+   "sample_mean_seconds": 0.11830779150215676,
+   "sample_std_seconds": 0.09375206827853351,
+   "projected_verification_seconds": 143.389043300614,
+   "projected_vs_extrapolated_all_pairs_speedup": 35.4127476069035
+  },
+  "100": {
+   "n": 700,
+   "all_pairs": 244650,
+   "candidate_pairs": 4595,
+   "cheap_stage_seconds": 0.023795199987944216,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 31804.5,
+   "sample_size": 200,
+   "sample_mean_seconds": 0.11719448199961334,
+   "sample_std_seconds": 0.08782523493819594,
+   "projected_verification_seconds": 538.5086447882233,
+   "projected_vs_extrapolated_all_pairs_speedup": 59.06033321434906
+  },
+  "200": {
+   "n": 1400,
+   "all_pairs": 979300,
+   "candidate_pairs": 15555,
+   "cheap_stage_seconds": 0.09320569998817518,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 127309.0,
+   "sample_size": 200,
+   "sample_mean_seconds": 0.11019199550326447,
+   "sample_std_seconds": 0.07504226495872376,
+   "projected_verification_seconds": 1714.0364900532788,
+   "projected_vs_extrapolated_all_pairs_speedup": 74.27438140248854
+  },
+  "400": {
+   "n": 2800,
+   "all_pairs": 3918600,
+   "candidate_pairs": 50783,
+   "cheap_stage_seconds": 0.3390315000433475,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 509418.0,
+   "sample_size": 200,
+   "sample_mean_seconds": 0.08944889599981252,
+   "sample_std_seconds": 0.04494665360614064,
+   "projected_verification_seconds": 4542.483285558479,
+   "projected_vs_extrapolated_all_pairs_speedup": 112.14526680143176
+  },
+  "800": {
+   "n": 5600,
+   "all_pairs": 15677200,
+   "candidate_pairs": 187381,
+   "cheap_stage_seconds": 1.6152991999988444,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 2038036.0,
+   "sample_size": 200,
+   "sample_mean_seconds": 0.09177347049728268,
+   "sample_std_seconds": 0.033047236572801654,
+   "projected_verification_seconds": 17196.604675251325,
+   "projected_vs_extrapolated_all_pairs_speedup": 118.51386006058864
+  }
+ },
+ "signature_extraction": {
+  "images": 280,
+  "total_seconds": 6.182117699994706,
+  "seconds_per_image": 0.022078991785695376
+ }
+}
