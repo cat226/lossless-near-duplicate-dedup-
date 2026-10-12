@@ -1,0 +1,58 @@
+{
+ "rule": "exclude if detail energy < cutoff; cutoff = midpoint of the largest gap in the low tail",
+ "detail_energy_definition": "mean |gray - bilinear_upsample(16x16 area-resampled gray)|, gray = cv2 IMREAD_GRAYSCALE",
+ "gap_searched_below": 1.0,
+ "gap_lo": 0.0,
+ "gap_hi": 0.4024159908294678,
+ "cutoff": 0.2012079954147339,
+ "content_check": "viewed by hand: a seeded sample of 21 of the flat images are all solid-colour fills; the 41 images ranked just above the gap (detail 0.40-2.98) are all real photographs (low-texture moons, sky, fog, dark scenes) and are kept",
+ "label_free": true,
+ "uses_phash": false,
+ "seed": 12345,
+ "excluded": 236,
+ "replacements_from_reserve": 236,
+ "reserve_keys_processed": 239,
+ "reserve_drops": {
+  "flat image (content rule)": 3
+ },
+ "final_pool_size": 10000,
+ "secondary_pool": "final pool + the excluded images (distractor_pool_excluded.jsonl)",
+ "known_ambiguous_pairs": [
+  {
+   "a": "74042ad327fe46e47de64966b1b39fd.jpg",
+   "b": "bc683ab445c93e2c9bc2b496542f69d.jpg",
+   "cosine": 0.946037,
+   "note": "appear to be frames from one fixed street camera at different times; kept as DISTINCT images under the frozen labelling policy ('same scene, next frame' is a distinct image)"
+  },
+  {
+   "a": "31161a78e94944d0f2efd032e63fd877.jpg",
+   "b": "8fcc106af6e72652da140d62aa634.jpg",
+   "cosine": 0.892431,
+   "note": "appear to be frames from one fixed street camera at different times; kept as DISTINCT images under the frozen labelling policy ('same scene, next frame' is a distinct image)"
+  },
+  {
+   "a": "8fcc106af6e72652da140d62aa634.jpg",
+   "b": "966cd62e68be07d18938533806d7efc.jpg",
+   "cosine": 0.872861,
+   "note": "appear to be frames from one fixed street camera at different times; kept as DISTINCT images under the frozen labelling policy ('same scene, next frame' is a distinct image)"
+  },
+  {
+   "a": "31161a78e94944d0f2efd032e63fd877.jpg",
+   "b": "966cd62e68be07d18938533806d7efc.jpg",
+   "cosine": 0.866066,
+   "note": "appear to be frames from one fixed street camera at different times; kept as DISTINCT images under the frozen labelling policy ('same scene, next frame' is a distinct image)"
+  }
+ ],
+ "audit_note": "cosine band 0.85-0.90 was not inspected in the initial audit",
+ "files_deleted": 0,
+ "known_ambiguous_cluster": {
+  "images": [
+   "31161a78e94944d0f2efd032e63fd877.jpg",
+   "74042ad327fe46e47de64966b1b39fd.jpg",
+   "8fcc106af6e72652da140d62aa634.jpg",
+   "966cd62e68be07d18938533806d7efc.jpg",
+   "bc683ab445c93e2c9bc2b496542f69d.jpg"
+  ],
+  "note": "five images that appear to come from one fixed camera; hardest-kind negatives, not duplicates under the policy"
+ }
+}
