@@ -219,3 +219,7 @@ __marimo__/
 
 # Phase 0 generated test images (regenerable via make_test_pairs.py --synthetic)
 phase0/data/
+
+# Phase 2 generated dataset and cached signatures/candidate sets (regenerable)
+phase2/data/
+phase2/artifacts/
