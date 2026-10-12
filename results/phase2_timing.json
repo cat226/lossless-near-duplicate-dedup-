@@ -1,0 +1,180 @@
+{
+ "hardware": {
+  "platform": "Windows-11-10.0.26200-SP0",
+  "processor": "Intel64 Family 6 Model 154 Stepping 4, GenuineIntel",
+  "logical_cpus": 12,
+  "python": "3.12.10",
+  "numpy": "2.5.1",
+  "pillow": "12.3.0",
+  "parallelism": "none (single process, BLAS threads pinned to 1)"
+ },
+ "projection_note": "All 'projected_*' values are projections from a 200-pair sample (seed 12345), not measurements of the whole candidate set.",
+ "sizes": {
+  "40": {
+   "n": 280,
+   "all_pairs": 39060,
+   "all_pairs_signature_distances_plus_otsu_seconds": 0.025058700004592538,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 5077.8,
+   "methods": {
+    "M1": {
+     "candidate_pairs": 650,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.23953042949724476,
+     "sample_std_seconds": 0.21109637738641004,
+     "projected_verification_seconds": 155.6947791732091,
+     "projected_vs_extrapolated_all_pairs_speedup": 32.61381034717286
+    },
+    "M2": {
+     "candidate_pairs": 11310,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.15147740400163456,
+     "sample_std_seconds": 0.05036280450301997,
+     "projected_verification_seconds": 1713.209439258487,
+     "projected_vs_extrapolated_all_pairs_speedup": 2.9639108235346745
+    },
+    "M3": {
+     "candidate_pairs": 11310,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.13781868850201134,
+     "sample_std_seconds": 0.051597038932820985,
+     "projected_verification_seconds": 1558.7293669577482,
+     "projected_vs_extrapolated_all_pairs_speedup": 3.2576533859181738
+    }
+   },
+   "measured_phase1c_all_pairs_seconds": 5079.1731483
+  },
+  "100": {
+   "n": 700,
+   "all_pairs": 244650,
+   "all_pairs_signature_distances_plus_otsu_seconds": 0.05873769999016076,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 31804.5,
+   "methods": {
+    "M1": {
+     "candidate_pairs": 1646,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.24100923299789428,
+     "sample_std_seconds": 0.24968564913628308,
+     "projected_verification_seconds": 396.701197514534,
+     "projected_vs_extrapolated_all_pairs_speedup": 80.17243254939955
+    },
+    "M2": {
+     "candidate_pairs": 92745,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.13924570400238737,
+     "sample_std_seconds": 0.049354402377522984,
+     "projected_verification_seconds": 12914.342817701416,
+     "projected_vs_extrapolated_all_pairs_speedup": 2.4627269423579374
+    },
+    "M3": {
+     "candidate_pairs": 92745,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.1435907310002949,
+     "sample_std_seconds": 0.050625142932771136,
+     "projected_verification_seconds": 13317.32234662235,
+     "projected_vs_extrapolated_all_pairs_speedup": 2.3882053142662363
+    }
+   }
+  },
+  "200": {
+   "n": 1400,
+   "all_pairs": 979300,
+   "all_pairs_signature_distances_plus_otsu_seconds": 0.25096320000011474,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 127309.0,
+   "methods": {
+    "M1": {
+     "candidate_pairs": 3249,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.2362273084995104,
+     "sample_std_seconds": 0.22108647205494292,
+     "projected_verification_seconds": 767.5025253149093,
+     "projected_vs_extrapolated_all_pairs_speedup": 165.87437278823884
+    },
+    "M2": {
+     "candidate_pairs": 405949,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.15563229499879527,
+     "sample_std_seconds": 0.06875102996909478,
+     "projected_verification_seconds": 63178.774522465945,
+     "projected_vs_extrapolated_all_pairs_speedup": 2.0150596614489538
+    },
+    "M3": {
+     "candidate_pairs": 405949,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.15299885750107933,
+     "sample_std_seconds": 0.060675888773010396,
+     "projected_verification_seconds": 62109.733203705655,
+     "projected_vs_extrapolated_all_pairs_speedup": 2.0497431470596683
+    }
+   }
+  },
+  "400": {
+   "n": 2800,
+   "all_pairs": 3918600,
+   "all_pairs_signature_distances_plus_otsu_seconds": 1.2116433999617584,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 509418.0,
+   "methods": {
+    "M1": {
+     "candidate_pairs": 6614,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.26202503750071626,
+     "sample_std_seconds": 0.24022106294159498,
+     "projected_verification_seconds": 1733.0335980297373,
+     "projected_vs_extrapolated_all_pairs_speedup": 293.9458303515584
+    },
+    "M2": {
+     "candidate_pairs": 1726247,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.15122909050201996,
+     "sample_std_seconds": 0.05961110133936584,
+     "projected_verification_seconds": 261058.76379184047,
+     "projected_vs_extrapolated_all_pairs_speedup": 1.9513537588272383
+    },
+    "M3": {
+     "candidate_pairs": 1726288,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.15162796349992277,
+     "sample_std_seconds": 0.054788504547440046,
+     "projected_verification_seconds": 261753.5338543547,
+     "projected_vs_extrapolated_all_pairs_speedup": 1.946174298007572
+    }
+   }
+  },
+  "800": {
+   "n": 5600,
+   "all_pairs": 15677200,
+   "all_pairs_signature_distances_plus_otsu_seconds": 4.129007100011222,
+   "extrapolated_all_pairs_verification_seconds_at_0.13s_per_pair": 2038036.0,
+   "methods": {
+    "M1": {
+     "candidate_pairs": 13614,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.26318152350228047,
+     "sample_std_seconds": 0.24932167117586881,
+     "projected_verification_seconds": 3582.9532609600465,
+     "projected_vs_extrapolated_all_pairs_speedup": 568.8145648469641
+    },
+    "M2": {
+     "candidate_pairs": 6977665,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.16489462350145914,
+     "sample_std_seconds": 0.048421309608306026,
+     "projected_verification_seconds": 1150579.443094309,
+     "projected_vs_extrapolated_all_pairs_speedup": 1.7713127174591363
+    },
+    "M3": {
+     "candidate_pairs": 6977837,
+     "sample_size": 200,
+     "sample_mean_seconds": 0.1684041500001331,
+     "sample_std_seconds": 0.06425910829991931,
+     "projected_verification_seconds": 1175096.7088244788,
+     "projected_vs_extrapolated_all_pairs_speedup": 1.7343559765721515
+    }
+   }
+  }
+ },
+ "signature_extraction": {
+  "images": 280,
+  "total_seconds": 9.592855199996848,
+  "seconds_per_image": 0.03426019714284589
+ }
+}
