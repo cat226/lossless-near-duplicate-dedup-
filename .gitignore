@@ -231,3 +231,7 @@ phase3/data/
 phase2b/data/
 phase2b/artifacts/
 phase3/artifacts/
+
+# Kaggle credentials (never commit; they live in ~/.kaggle or the environment)
+kaggle.json
+.kaggle/
