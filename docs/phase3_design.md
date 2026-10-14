@@ -439,3 +439,99 @@ Implementation (section 12), the pilot (stop only if a pilot item fails), then t
 D3a at each size and draw, the low-prevalence variant, D3b, the secondary pool, the end-to-end run;
 then the audit, `docs/phase3_report.md`, and the user's approval before any PR. Everything else in this
 design is unchanged.
+
+## Addendum B (2026-10-14): execution environment and run protocol
+
+Written before any test-split run. **No Phase 3 method result exists and nothing in sections 1-14 or
+Addendum A is changed**; this addendum records where the run executes and how the implementation
+realises the design, including two interpretations the user can veto at the readiness report.
+
+### B.1 Execution environment (the run executes from D:)
+
+- On 2026-10-14 the system drive had 0 bytes free. The user moved `phase3/data` to
+  `D:\losless data\data`, and the run executes from a copy of the repository at
+  `D:\losless data\repo`. The copy was made with `robocopy` (code, manifests and git history; no
+  image data); its 943 files were verified **SHA-256 identical** to the working tree on C: and its
+  `HEAD` equals the design commit `624283f`. `phase3\data` in the copy is a junction to the same
+  data directory. Commits for this stage are made from the D: repository; the C: working tree is not
+  edited during the run.
+- The run process sets `TEMP` and `TMP` to `D:\losless data\tmp` (process environment only) and
+  `PYTHONDONTWRITEBYTECODE=1`; nothing is written to C: except the interpreter's own reads.
+- Start thresholds (the user's): free space C: >= 2 GB and D: >= 6 GB; they replace the 1.5 GB floor of
+  section 15 and pilot item 8. A runtime guard stops the run if C: falls below 1.5 GB or D: below 3 GB;
+  every part is a resumable file, so a stopped run continues without recomputation.
+- Data integrity after the move: every pool and Copydays file is re-hashed against its manifest
+  (`phase3/integrity.py`) at every start, in addition to the 39 split hashes and 4 manifest hashes.
+
+### B.2 Ladder construction
+
+For each draw one image set is built at the largest rung (500 sources + 6,500 singletons = 10,000
+images) with neutral names ranked by one seeded permutation over the whole set (section 3.5). A smaller
+rung is the subset given by `membership.json` (the first F(n) sources' images and the first S(n)
+singletons), written from the in-memory build records, never from `labels.json`; nodes are sorted by
+neutral id, so rungs are node-order-preserving subsets. Singleton images are hard links to the pool
+files (identical bytes, no copy). Features of the whole set (pHash, 1056-d signature, dHash, file
+SHA-256) are extracted once per image by `phase3/features.py`, from a single decode with the unmodified
+Phase 2 building blocks and the Phase 3 dHash; a parallel extraction equals a single-process one
+(tested).
+
+### B.3 Parts, order, rehearsal
+
+A run is a set of resumable parts under `phase3/artifacts/run_<mode>/`: tau_B per draw (main and
+extended pool, from the dev lists only), then per draw the ladder and its verifier metrics, then the
+low-prevalence variant, D3b, the secondary pool, and the end-to-end run (the order of A.6, grouped by
+stage). Part files carry no timestamps or timings and are byte-reproducible; wall-clock events go to
+`events.jsonl`, outside the results. For every evaluated set the candidate sets are hashed and the hashes
+are logged before the labels are opened. The secondary pool run uses the extended-pool dev split recorded
+in A.2 (`ext_dev`: its first 150 names are family sources, the other 1,350 singletons, the rule of the
+main pool) for its own tau_B, applied once to `ext_sources250` and `ext_singletons3250`.
+A **rehearsal** (`--mode rehearsal`) runs exactly the same code on the DEV split only, with smaller
+rungs (400, 1,000 and 2,000 images; low-prevalence set 1,400 images; D3b with 300 singletons; secondary
+pool 500 images; end-to-end at 400). It validates the code, produces no evidence, and its audit must pass
+before the full run can start. The full run additionally requires: the dev-only pilot report with no
+failed item, the setup verification, a clean working tree (no modified tracked file), no change to any
+frozen path, and an explicit `--go`; only then is `phase3/.test_split_approved` written.
+
+### B.4 Gate interpretation (to be confirmed at the readiness report)
+
+Per cell the gate of section 7 is unchanged. D1 (b) adds the low-prevalence variant to D3a, so the
+**headline strict verdict covers the 12 ladder cells and the 3 variant cells (n = 8,000)**; the verdict on
+the 12 ladder cells alone is also reported. D3b is gated as in D5 (recall >= 0.95 and reduction >= 0.90 in
+every draw); the secondary pool run and the A1 threshold (M2_A1) are never gated. A method is
+gated at its primary operating point (M1 R <= 10, dHash R <= 10, exact hash, M2 at tau_B, M3). A method that
+does not exceed its random control in a cell is flagged.
+
+### B.5 Verifier metrics (secondary, never gating)
+
+- Verifier distances are pure functions of an image pair, so the true pairs of the **largest rung** of a
+  draw are verified once (primary verifier on 10 workers in batches of at most 800 shared-memory images;
+  aligned verifier on 10 workers) and every smaller rung reads its true pairs' values from them.
+- Primary: verifier cap = share of true pairs with r < tau (tau = 0.5805796715948317); confirmed recall =
+  share of true pairs that are in the candidate set and have r < tau; false-accept rate on a seeded sample
+  (`default_rng(12345)`, without replacement) of up to 1,000 non-true candidate pairs per primary method at the
+  largest rung of each draw (and once per variant, D3b and secondary-pool set).
+- Aligned (A.3): tau_al(d) = Otsu over the alignment-ok aligned distances of all primary-M2 candidate pairs
+  at the smallest rung (n = 1,000); alignment-failure rate, aligned cap, confirmed recall and false-accept rate
+  as above, with failures counted as not accepted. AUC (true versus non-true candidate pairs at n = 1,000) is
+  reported in two declared variants: over alignment-ok pairs only, and with each failure given +infinity
+  (worst) distance. The same AUC is reported for the primary distance on the end-to-end graph.
+- Every parallel batch is accompanied by the exactness assertion of A.4 (500 primary pairs and 200 aligned
+  pairs for the true-pair batches and the tau_al batch; 100 and 50 for each false-accept sample); a mismatch
+  stops the run.
+
+### B.6 End-to-end additions
+
+At n = 1,000 per draw, besides the A.4 / section 8 comparison: the counts of positive edges among true and
+among non-true pairs, the primary-distance AUC over the candidate pairs and over all pairs.
+
+### B.7 Cost and audit scripts
+
+`experiments/run_phase3_timing.py` follows section 9 (single process, BLAS pinned to one thread, after all
+parallel work; writes `results/phase3_timing.json`, outside the byte-comparable results).
+`experiments/audit_phase3.py` follows section 11 with separate code (lookup-table popcount, scipy
+`cdist`, plain index arithmetic) for: all primary candidate sets at every rung, draw and secondary set
+(every operating point at the smallest rung), recall, reduction, per-transformation recall and gate
+verdicts; tau_B from the dev files; the split hashes; a fresh-process byte-identical re-run of draw 1 at the
+smallest rung; the frozen-path diff; the label-leak scan; label-after-hash and tau_B-before-test event
+order. The verifier metrics of the parallel runs are covered by the recorded bitwise exactness
+assertions and are not recomputed by the audit **[L]**.

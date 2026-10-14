@@ -235,3 +235,6 @@ phase3/artifacts/
 # Kaggle credentials (never commit; they live in ~/.kaggle or the environment)
 kaggle.json
 .kaggle/
+
+# Phase 3 test-split unlock flag (written by the run only after the user's go)
+phase3/.test_split_approved
