@@ -1,0 +1,12 @@
+{
+ "accepted": 10000,
+ "candidates_processed": 10022,
+ "cap": 1024,
+ "disk_bytes": 1238133687,
+ "drops": {
+  "shorter side < 128": 22
+ },
+ "min_side": 128,
+ "requested": 10000,
+ "seed": 12345
+}

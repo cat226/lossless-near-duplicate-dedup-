@@ -1,0 +1,13 @@
+﻿{
+    "commit":  "47f1b879c51808fec6f9b7b40e30c8ee18932c54",
+    "commit_short":  "47f1b87",
+    "launch_time_utc":  "2026-10-14T14:59:50Z",
+    "mode":  "full",
+    "command":  "python experiments/run_phase3.py --mode full --go",
+    "workdir":  "D:\\losless data\\repo",
+    "log":  "D:\\losless data\\logs\\run_full.out.log / run_full.err.log",
+    "python_numpy":  "3.12.10 2.5.1",
+    "TEMP":  "D:\\losless data\\tmp",
+    "user_authorization":  "GO for the test-split run, B.4 accepted as written (2026-10-14)",
+    "resume_rule":  "any resume must use this commit hash"
+}

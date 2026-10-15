@@ -1,0 +1,8 @@
+﻿{
+    "resume":  1,
+    "commit":  "47f1b879c51808fec6f9b7b40e30c8ee18932c54",
+    "resumed_at_utc":  "2026-10-14T16:17:56Z",
+    "reason":  "run process terminated at about 16:17Z by a console Ctrl-C (workers orphaned); not a code error; parts finished before the stop (tau_b x6, ladder_d1, verify_d1, ladder_d2) are kept; verify_d2 had no output and is recomputed from scratch",
+    "code_changed":  false,
+    "relaunch":  "own process group, new logs run_full_resume1.*"
+}
