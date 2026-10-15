@@ -1,0 +1,69 @@
+{"t": "2026-10-14T15:02:26+00:00", "event": "preflight_passed", "mode": "full", "free_gb": {"C:": 3.37, "D:": 204.45}, "head": "47f1b879c51808fec6f9b7b40e30c8ee18932c54"}
+{"t": "2026-10-14T15:02:26+00:00", "event": "test_split_unlocked", "approval_file": "D:\\losless data\\repo\\phase3\\.test_split_approved"}
+{"t": "2026-10-14T15:02:26+00:00", "event": "run_start", "mode": "full", "draws": [1, 2, 3], "free_gb": {"C:": 3.37, "D:": 204.45}}
+{"t": "2026-10-14T15:03:20+00:00", "event": "tau_b_written", "part": "tau_b_d1", "tau_b": 0.6236409002884088, "dev_recall_at_tau": 0.9701587301587301}
+{"t": "2026-10-14T15:04:29+00:00", "event": "tau_b_written", "part": "tau_b_ext_d1", "tau_b": 0.7409505813316416, "dev_recall_at_tau": 0.9704761904761905}
+{"t": "2026-10-14T15:05:40+00:00", "event": "tau_b_written", "part": "tau_b_d2", "tau_b": 0.6436204203005785, "dev_recall_at_tau": 0.9701587301587301}
+{"t": "2026-10-14T15:06:49+00:00", "event": "tau_b_written", "part": "tau_b_ext_d2", "tau_b": 0.6818231775184794, "dev_recall_at_tau": 0.9701587301587301}
+{"t": "2026-10-14T15:07:58+00:00", "event": "tau_b_written", "part": "tau_b_d3", "tau_b": 0.6664943548320335, "dev_recall_at_tau": 0.9701587301587301}
+{"t": "2026-10-14T15:09:04+00:00", "event": "tau_b_written", "part": "tau_b_ext_d3", "tau_b": 0.7891977259051779, "dev_recall_at_tau": 0.9701587301587301}
+{"t": "2026-10-14T15:10:05+00:00", "event": "ladder_built", "draw": 1, "images": 10000, "free_gb": {"C:": 3.62, "D:": 203.58}}
+{"t": "2026-10-14T15:10:39+00:00", "event": "candidate_hashes_final", "part": "ladder_d1/n1000", "n": 1000, "sets": 22}
+{"t": "2026-10-14T15:10:39+00:00", "event": "labels_opened", "part": "ladder_d1/n1000"}
+{"t": "2026-10-14T15:10:46+00:00", "event": "candidate_hashes_final", "part": "ladder_d1/n2500", "n": 2500, "sets": 22}
+{"t": "2026-10-14T15:10:46+00:00", "event": "labels_opened", "part": "ladder_d1/n2500"}
+{"t": "2026-10-14T15:11:21+00:00", "event": "candidate_hashes_final", "part": "ladder_d1/n5000", "n": 5000, "sets": 22}
+{"t": "2026-10-14T15:11:21+00:00", "event": "labels_opened", "part": "ladder_d1/n5000"}
+{"t": "2026-10-14T15:14:04+00:00", "event": "candidate_hashes_final", "part": "ladder_d1/n10000", "n": 10000, "sets": 22}
+{"t": "2026-10-14T15:14:04+00:00", "event": "labels_opened", "part": "ladder_d1/n10000"}
+{"t": "2026-10-14T15:23:47+00:00", "event": "tau_al_written", "draw": 1, "tau_al": 0.34145053019446714}
+{"t": "2026-10-14T15:46:34+00:00", "event": "ladder_built", "draw": 2, "images": 10000, "free_gb": {"C:": 3.6, "D:": 203.18}}
+{"t": "2026-10-14T15:47:22+00:00", "event": "candidate_hashes_final", "part": "ladder_d2/n1000", "n": 1000, "sets": 22}
+{"t": "2026-10-14T15:47:22+00:00", "event": "labels_opened", "part": "ladder_d2/n1000"}
+{"t": "2026-10-14T15:47:29+00:00", "event": "candidate_hashes_final", "part": "ladder_d2/n2500", "n": 2500, "sets": 22}
+{"t": "2026-10-14T15:47:29+00:00", "event": "labels_opened", "part": "ladder_d2/n2500"}
+{"t": "2026-10-14T15:48:05+00:00", "event": "candidate_hashes_final", "part": "ladder_d2/n5000", "n": 5000, "sets": 22}
+{"t": "2026-10-14T15:48:05+00:00", "event": "labels_opened", "part": "ladder_d2/n5000"}
+{"t": "2026-10-14T15:52:50+00:00", "event": "candidate_hashes_final", "part": "ladder_d2/n10000", "n": 10000, "sets": 22}
+{"t": "2026-10-14T15:52:50+00:00", "event": "labels_opened", "part": "ladder_d2/n10000"}
+{"t": "2026-10-14T16:05:20+00:00", "event": "tau_al_written", "draw": 2, "tau_al": 0.003769451088941867}
+{"t": "2026-10-14T16:18:29+00:00", "event": "preflight_passed", "mode": "full", "free_gb": {"C:": 3.31, "D:": 203.08}, "head": "47f1b879c51808fec6f9b7b40e30c8ee18932c54"}
+{"t": "2026-10-14T16:18:29+00:00", "event": "test_split_unlocked", "approval_file": "D:\\losless data\\repo\\phase3\\.test_split_approved"}
+{"t": "2026-10-14T16:18:29+00:00", "event": "run_start", "mode": "full", "draws": [1, 2, 3], "free_gb": {"C:": 3.31, "D:": 203.08}}
+{"t": "2026-10-14T16:20:45+00:00", "event": "tau_al_written", "draw": 2, "tau_al": 0.003769451088941867}
+{"t": "2026-10-14T16:43:47+00:00", "event": "ladder_built", "draw": 3, "images": 10000, "free_gb": {"C:": 3.62, "D:": 202.79}}
+{"t": "2026-10-14T16:44:49+00:00", "event": "candidate_hashes_final", "part": "ladder_d3/n1000", "n": 1000, "sets": 22}
+{"t": "2026-10-14T16:44:49+00:00", "event": "labels_opened", "part": "ladder_d3/n1000"}
+{"t": "2026-10-14T16:44:59+00:00", "event": "candidate_hashes_final", "part": "ladder_d3/n2500", "n": 2500, "sets": 22}
+{"t": "2026-10-14T16:44:59+00:00", "event": "labels_opened", "part": "ladder_d3/n2500"}
+{"t": "2026-10-14T16:45:43+00:00", "event": "candidate_hashes_final", "part": "ladder_d3/n5000", "n": 5000, "sets": 22}
+{"t": "2026-10-14T16:45:43+00:00", "event": "labels_opened", "part": "ladder_d3/n5000"}
+{"t": "2026-10-14T16:48:22+00:00", "event": "candidate_hashes_final", "part": "ladder_d3/n10000", "n": 10000, "sets": 22}
+{"t": "2026-10-14T16:48:22+00:00", "event": "labels_opened", "part": "ladder_d3/n10000"}
+{"t": "2026-10-14T16:59:08+00:00", "event": "tau_al_written", "draw": 3, "tau_al": 0.34689538245107615}
+{"t": "2026-10-14T17:24:43+00:00", "event": "candidate_hashes_final", "part": "variant_d1", "n": 8000, "sets": 22}
+{"t": "2026-10-14T17:24:43+00:00", "event": "labels_opened", "part": "variant_d1"}
+{"t": "2026-10-14T17:43:21+00:00", "event": "candidate_hashes_final", "part": "variant_d2", "n": 8000, "sets": 22}
+{"t": "2026-10-14T17:43:21+00:00", "event": "labels_opened", "part": "variant_d2"}
+{"t": "2026-10-14T18:02:58+00:00", "event": "candidate_hashes_final", "part": "variant_d3", "n": 8000, "sets": 22}
+{"t": "2026-10-14T18:02:58+00:00", "event": "labels_opened", "part": "variant_d3"}
+{"t": "2026-10-14T18:17:46+00:00", "event": "candidate_hashes_final", "part": "d3b_d1", "n": 5000, "sets": 22}
+{"t": "2026-10-14T18:17:46+00:00", "event": "labels_opened", "part": "d3b_d1"}
+{"t": "2026-10-14T18:28:54+00:00", "event": "candidate_hashes_final", "part": "d3b_d2", "n": 5000, "sets": 22}
+{"t": "2026-10-14T18:28:54+00:00", "event": "labels_opened", "part": "d3b_d2"}
+{"t": "2026-10-14T18:39:06+00:00", "event": "candidate_hashes_final", "part": "d3b_d3", "n": 5000, "sets": 22}
+{"t": "2026-10-14T18:39:06+00:00", "event": "labels_opened", "part": "d3b_d3"}
+{"t": "2026-10-14T18:50:28+00:00", "event": "candidate_hashes_final", "part": "ext_d1", "n": 5000, "sets": 22}
+{"t": "2026-10-14T18:50:28+00:00", "event": "labels_opened", "part": "ext_d1"}
+{"t": "2026-10-14T19:04:46+00:00", "event": "candidate_hashes_final", "part": "ext_d2", "n": 5000, "sets": 22}
+{"t": "2026-10-14T19:04:46+00:00", "event": "labels_opened", "part": "ext_d2"}
+{"t": "2026-10-14T19:18:45+00:00", "event": "candidate_hashes_final", "part": "ext_d3", "n": 5000, "sets": 22}
+{"t": "2026-10-14T19:18:45+00:00", "event": "labels_opened", "part": "ext_d3"}
+{"t": "2026-10-14T19:32:08+00:00", "event": "e2e_graph_start", "draw": 1, "n": 1000, "pairs": 499500}
+{"t": "2026-10-14T20:22:42+00:00", "event": "e2e_graph_start", "draw": 2, "n": 1000, "pairs": 499500}
+{"t": "2026-10-14T21:12:10+00:00", "event": "e2e_graph_start", "draw": 3, "n": 1000, "pairs": 499500}
+{"t": "2026-10-15T05:07:22+00:00", "event": "preflight_passed", "mode": "full", "free_gb": {"C:": 6.2, "D:": 201.62}, "head": "47f1b879c51808fec6f9b7b40e30c8ee18932c54"}
+{"t": "2026-10-15T05:07:22+00:00", "event": "test_split_unlocked", "approval_file": "D:\\losless data\\repo\\phase3\\.test_split_approved"}
+{"t": "2026-10-15T05:07:22+00:00", "event": "run_start", "mode": "full", "draws": [1, 2, 3], "free_gb": {"C:": 6.2, "D:": 201.62}}
+{"t": "2026-10-15T05:07:22+00:00", "event": "e2e_graph_start", "draw": 3, "n": 1000, "pairs": 499500}
+{"t": "2026-10-15T07:44:49+00:00", "event": "run_done", "seconds": 9447, "free_gb": {"C:": 3.18, "D:": 201.62}}

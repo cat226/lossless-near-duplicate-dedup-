@@ -1,0 +1,10 @@
+﻿{
+    "resume":  2,
+    "commit":  "47f1b879c51808fec6f9b7b40e30c8ee18932c54",
+    "resumed_at_utc":  "2026-10-15T05:05:30Z",
+    "code_changed":  false,
+    "reason":  "Environmental: Windows Update (TrustedInstaller / MoUsoCoreWorker) forced reboots at 04:47-04:51 IST on 2026-10-15 (Kernel-Power 109 / User32 1074, boot 04:51:45), which killed the run process during the draw-3 end-to-end graph; workers logged BrokenPipeError as a consequence. No Python error, no AssertionError.",
+    "parts_kept":  "tau_b x6, ladder_d1-3, verify_d1-3, variant_d1-3, d3b_d1-3, ext_d1-3, e2e_d1, e2e_d2",
+    "parts_recomputed":  "e2e_d3 (no output existed; recomputed from scratch)",
+    "authority":  "standing permission from the user, up to 3 environmental resumes on the same commit"
+}
