@@ -154,9 +154,9 @@ def test_aggregate_strict_gate_is_every_cell():
     assert abs(rec["mean"] - 0.99) < 1e-12 and rec["min"] == rec["max"] == 0.99
 
 
-def test_plan_uses_dev_in_rehearsal_and_test_is_locked_in_full():
+def test_plan_uses_dev_in_rehearsal_and_test_is_locked_in_full(tmp_path, monkeypatch):
+    monkeypatch.setattr(sp, "TEST_APPROVAL_FILE", tmp_path / "no_approval_here")  # independent of the local approval file
     s = sp.verify_startup()
-    assert not sp.TEST_APPROVAL_FILE.exists()
     reh = rn.Plan("rehearsal", s)
     assert reh.sources(1) == s.dev_sources(1) and reh.singletons(1) == s.dev_singletons(1)
     assert not set(reh.d3b_singletons(1)) & set(reh.sources(1))
@@ -184,7 +184,9 @@ def test_disk_guard_stops_the_run(monkeypatch):
         shutil.rmtree(ctx.art, ignore_errors=True)
 
 
-def test_full_mode_refuses_without_go_and_creates_no_approval_file():
+def test_full_mode_refuses_without_go_and_leaves_the_approval_file_alone():
+    before = (sp.TEST_APPROVAL_FILE.exists(), sp.TEST_APPROVAL_FILE.stat().st_mtime_ns if sp.TEST_APPROVAL_FILE.exists() else None)
     r = subprocess.run([sys.executable, "experiments/run_phase3.py", "--mode", "full"], cwd=sp.REPO, capture_output=True, text=True)
     assert r.returncode != 0 and "--go is required" in (r.stderr + r.stdout)
-    assert not sp.TEST_APPROVAL_FILE.exists()
+    after = (sp.TEST_APPROVAL_FILE.exists(), sp.TEST_APPROVAL_FILE.stat().st_mtime_ns if sp.TEST_APPROVAL_FILE.exists() else None)
+    assert before == after  # neither created nor touched
