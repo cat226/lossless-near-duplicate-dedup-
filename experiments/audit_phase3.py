@@ -95,6 +95,19 @@ def m2_flats(a: np.ndarray, taus, block: int = 256) -> dict:
     return {t: np.sort(np.concatenate(v)) for t, v in out.items()}
 
 
+def near_threshold_counts(a: np.ndarray, taus: dict, block: int = 256, width: float = 1e-9) -> dict:
+    """Number of pairs (i < j) whose Euclidean distance lies within `width` of each named threshold."""
+    n = len(a)
+    out = {k: 0 for k in taus}
+    for s in range(0, n, block):
+        e = min(n, s + block)
+        d = cdist(a[s:e], a)
+        upper = np.arange(n)[None, :] > np.arange(s, e)[:, None]
+        for k, t in taus.items():
+            out[k] += int((np.abs(d - t) < width)[upper].sum())
+    return out
+
+
 def exact_flats(sha: np.ndarray) -> np.ndarray:
     groups: dict = {}
     for i, h in enumerate(sha.tolist()):
@@ -182,6 +195,7 @@ def audit_cell(tag, stored_score, stored_hashes, feats, labels, paths, npz, n_ke
             stored[short.get(nm, nm)] = npz[key]
     thresholds = {f"M2_B_x{f}": tau_b * f for f in factors}
     thresholds.update({"M2_A1": tau_a1, "M3": tau_b})
+    near_counts = near_threshold_counts(a, {k: v for k, v in thresholds.items() if k != "M3"})  # M3 shares the tau_B pairs
     starts = np.arange(n, dtype=np.int64) * n - np.arange(n, dtype=np.int64) * (np.arange(n, dtype=np.int64) + 1) // 2
     mismatch_npz, near_flips = [], {}
     for name in list(mine):
@@ -215,7 +229,7 @@ def audit_cell(tag, stored_score, stored_hashes, feats, labels, paths, npz, n_ke
             bad_score.append((name, "gate"))
     tau_ok = abs(tau_a1 - stored_score["tau"]["a1"]) < 1e-9 and method_a1 == stored_score["tau"]["a1_method"]
     return {"tag": tag, "images": n, "true_pairs": int(T["flat"].size), "sets_recomputed": len(mine), "hash_mismatch": bad_hash,
-            "score_mismatch": bad_score, "persisted_set_mismatch": mismatch_npz, "near_threshold_flips": near_flips,
+            "score_mismatch": bad_score, "persisted_set_mismatch": mismatch_npz, "near_threshold_flips": near_flips, "near_threshold_pairs_within_1e-9": near_counts,
             "a1_threshold_equal": bool(tau_ok),
             "true_pairs_equal": T["flat"].size == stored_score["true_pairs"]}
 
@@ -271,7 +285,8 @@ def main() -> None:
                                     parts[f"ladder_d{d}"]["sizes"][str(n)]["candidate_hashes"],
                                     {k: v[nd] for k, v in feats_L.items()}, labels, [paths_L[i] for i in nd], npz, n,
                                     all_sets=(n == ctx.plan.sizes[0])))
-            print("  audited", cells[-1]["tag"], flush=True)
+            print("  audited", cells[-1]["tag"], "| pairs within 1e-9 of a threshold:", cells[-1]["near_threshold_pairs_within_1e-9"],
+                  "| flips vs the run:", cells[-1]["near_threshold_flips"] or 0, flush=True)
         for kind, folder in (("variant", f"draw{d}_variant"), ("d3b", f"draw{d}_d3b"), ("ext", f"draw{d}_ext")):
             root = ctx.data / folder
             paths = sorted((root / "images").glob("i*"))
@@ -281,7 +296,8 @@ def main() -> None:
             npz = np.load(ctx.art / f"sets_{kind}_d{d}.npz")
             cells.append(audit_cell(f"{kind}_d{d}", part["score"], part["candidate_hashes"], {k: f[k] for k in ("phash", "coarse", "dhash", "sha256")},
                                     lab, paths, npz, len(paths), all_sets=False))
-            print("  audited", cells[-1]["tag"], flush=True)
+            print("  audited", cells[-1]["tag"], "| pairs within 1e-9 of a threshold:", cells[-1]["near_threshold_pairs_within_1e-9"],
+                  "| flips vs the run:", cells[-1]["near_threshold_flips"] or 0, flush=True)
     check("A2 candidate-set SHA-256 recomputed independently equals the run's for every audited set",
           all(not c["hash_mismatch"] for c in cells), cells_audited=len(cells), mismatches=[(c["tag"], c["hash_mismatch"]) for c in cells if c["hash_mismatch"]])
     check("A2 recall, reduction, original/transform splits, per-transformation recall and gate verdicts equal",
@@ -397,9 +413,21 @@ def main() -> None:
         check("A10 a fresh process reproduces tau_B and the smallest-rung results of draw 1 byte for byte", same_tau and same_cell,
               returncode=r.returncode, stderr_tail=r.stderr[-300:] if r.returncode else "")
     all_passed = all(v["pass"] for v in checks.values())
-    out = {"mode": args.mode, "all_passed": bool(all_passed), "checks": checks, "cells_audited": [c["tag"] for c in cells]}
+    out = {"mode": args.mode, "all_passed": bool(all_passed), "checks": checks, "cells_audited": [c["tag"] for c in cells],
+           "near_threshold_pairs_within_1e-9_per_cell": {c["tag"]: c["near_threshold_pairs_within_1e-9"] for c in cells},
+           "near_threshold_flips_per_cell": {c["tag"]: c["near_threshold_flips"] for c in cells},
+           "statements": [
+               "The run's computation (block-wise Gram identity, phase3/blockwise.py, as pre-registered) is the OFFICIAL one. The audit's "
+               "scipy cdist route is an independent cross-check and never replaces the run's candidate sets or results.",
+               "A pair whose distance is within 1e-9 of a threshold may fall on either side of it between the two routes; the audit accepts a "
+               "difference only for such pairs and then scores the run's persisted set. Per-cell counts of such pairs and of actual flips are recorded.",
+               "Limitation: the verifier metrics of the parallel runs (true-pair verification, false-accept samples, tau_al, the end-to-end graph) are "
+               "NOT recomputed by this audit; they are covered only by the bitwise exactness assertions recorded in the results (parallel vs "
+               "single-process on seeded samples)."]}
     dest = REPO / ("phase3/artifacts/rehearsal_audit.json" if args.mode == "rehearsal" else "results/phase3_audit.json")
     dest.write_text(json.dumps(out, indent=1, sort_keys=True))
+    for st in out["statements"]:
+        print("NOTE:", st)
     print("AUDIT:", "ALL CHECKS PASSED" if all_passed else f"FAILED {[k for k, v in checks.items() if not v['pass']]}", "->", dest)
     sys.exit(0 if all_passed else 1)
 
