@@ -1,0 +1,397 @@
+{
+ "blas_threads_pinned_to": 1,
+ "cells": {
+  "d1_n1000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.7111101690003853,
+    "prepare_per_image_mean": 0.02197405686266256
+   },
+   "all_pairs": 499500,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 0.8370117999947979,
+    "feature_extraction_decode_included": 36.04535799999576
+   },
+   "extrapolation_all_pairs_primary_seconds": 24988.263972659242,
+   "images": 1000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.092452067999875,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.050026554499818306
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 81.82008017988937,
+    "M2_A1": 25075.681951538096,
+    "M2_B": 130.35741587982375,
+    "M3": 132.0215531038215,
+    "dHash": 85.24080669588476
+   }
+  },
+  "d1_n10000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.10960595300013665,
+    "prepare_per_image_mean": 0.025120194709170537
+   },
+   "all_pairs": 49995000,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 98.64806020000105,
+    "feature_extraction_decode_included": 259.35600949999935
+   },
+   "extrapolation_all_pairs_primary_seconds": 2292917.535294168,
+   "images": 10000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.060981334500065716,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.045862936999583326
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 529.1350394570702,
+    "M2_A1": 1723192.743753183,
+    "M2_B": 2924.1769519471513,
+    "M3": 2942.8372403041712,
+    "dHash": 718.8479710867747
+   }
+  },
+  "d1_n2500": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.09730247399966174,
+    "prepare_per_image_mean": 0.01067593542875589
+   },
+   "all_pairs": 3123750,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 3.2629171999942628,
+    "feature_extraction_decode_included": 37.08315479999874
+   },
+   "extrapolation_all_pairs_primary_seconds": 66935.54163150911,
+   "images": 2500,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.042070820000153615,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.02142794449988287
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 90.91504202033197,
+    "M2_A1": 72847.30766306599,
+    "M2_B": 206.56772620075424,
+    "M3": 208.7974796607624,
+    "dHash": 104.7563418003825
+   }
+  },
+  "d1_n5000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.1142656529998203,
+    "prepare_per_image_mean": 0.025093102234779265
+   },
+   "all_pairs": 12497500,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 25.840908000005584,
+    "feature_extraction_decode_included": 123.69153450000158
+   },
+   "extrapolation_all_pairs_primary_seconds": 572881.4070450359,
+   "images": 5000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.05797863949985185,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.04583968049970281
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 249.48208576786251,
+    "M2_A1": 410256.9690582307,
+    "M2_B": 866.9545964412847,
+    "M3": 873.7380972627674,
+    "dHash": 303.1703059447253
+   }
+  },
+  "d2_n1000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.19207558699985383,
+    "prepare_per_image_mean": 0.02356482101880551
+   },
+   "all_pairs": 499500,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 1.0737380999999004,
+    "feature_extraction_decode_included": 34.48805999999604
+   },
+   "extrapolation_all_pairs_primary_seconds": 21815.606805799835,
+   "images": 1000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.060679448500195576,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.04367488850009977
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 52.91247909217054,
+    "M2_A1": 16555.90208769036,
+    "M2_B": 104.97544590533835,
+    "M3": 105.76427873584089,
+    "dHash": 55.15761868667778
+   }
+  },
+  "d2_n10000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.0722902729998168,
+    "prepare_per_image_mean": 0.025314281383118135
+   },
+   "all_pairs": 49995000,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 101.25343989999965,
+    "feature_extraction_decode_included": 250.572742999997
+   },
+   "extrapolation_all_pairs_primary_seconds": 2097447.034329644,
+   "images": 10000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.05442538799994509,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.041953136000192896
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 470.0176507675258,
+    "M2_A1": 1518988.1420792555,
+    "M2_B": 4053.87502517591,
+    "M3": 4070.855746231893,
+    "dHash": 640.0425628793543
+   }
+  },
+  "d2_n2500": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.1212291509998613,
+    "prepare_per_image_mean": 0.02390283782038657
+   },
+   "all_pairs": 3123750,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 6.351202800004103,
+    "feature_extraction_decode_included": 68.82098609999957
+   },
+   "extrapolation_all_pairs_primary_seconds": 136915.02769895695,
+   "images": 2500,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.05179474650001794,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.043830341000066254
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 111.25511548203853,
+    "M2_A1": 91201.17373741508,
+    "M2_B": 358.6786195126242,
+    "M3": 362.25245702112545,
+    "dHash": 124.51457058604312
+   }
+  },
+  "d2_n5000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.13845138299984683,
+    "prepare_per_image_mean": 0.023657464444194275
+   },
+   "all_pairs": 12497500,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 26.29394930000126,
+    "feature_extraction_decode_included": 129.58116169999994
+   },
+   "extrapolation_all_pairs_primary_seconds": 560117.4665983821,
+   "images": 5000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.06229391450007824,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.04481836100007058
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 268.92282889683776,
+    "M2_A1": 428086.14761328866,
+    "M2_B": 1304.4968635461385,
+    "M3": 1312.906542003649,
+    "dHash": 317.4497882923987
+   }
+  },
+  "d3_n1000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.20167977400044038,
+    "prepare_per_image_mean": 0.023399882822135388
+   },
+   "all_pairs": 499500,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 1.0283940000008442,
+    "feature_extraction_decode_included": 26.371646500003408
+   },
+   "extrapolation_all_pairs_primary_seconds": 21615.62873408877,
+   "images": 1000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.06542850400011957,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.043274532000177716
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 55.810513912101996,
+    "M2_A1": 18152.026150265174,
+    "M2_B": 132.23100658424164,
+    "M3": 133.8012906802445,
+    "dHash": 59.932509664109524
+   }
+  },
+  "d3_n10000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.02037382600014098,
+    "prepare_per_image_mean": 0.02616684836954411
+   },
+   "all_pairs": 49995000,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 101.90723889999936,
+    "feature_extraction_decode_included": 238.7001397999993
+   },
+   "extrapolation_all_pairs_primary_seconds": 2224751.402595345,
+   "images": 10000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.048101712500065334,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.04449947799970687
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 411.02913331305825,
+    "M2_A1": 1353913.802957814,
+    "M2_B": 5368.920742407292,
+    "M3": 5382.437323619811,
+    "dHash": 604.7828312633214
+   }
+  },
+  "d3_n2500": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.1266880150002544,
+    "prepare_per_image_mean": 0.02321274393072252
+   },
+   "all_pairs": 3123750,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 6.040657500001544,
+    "feature_extraction_decode_included": 54.652523999997356
+   },
+   "extrapolation_all_pairs_primary_seconds": 125634.36364505773,
+   "images": 2500,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.05242431250022492,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.04021908400001848
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 111.03469387547638,
+    "M2_A1": 89742.55935351002,
+    "M2_B": 487.96550075209353,
+    "M3": 490.8488379396059,
+    "dHash": 132.47623768806838
+   }
+  },
+  "d3_n5000": {
+   "aligned_verifier_seconds": {
+    "pairs": 100,
+    "per_pair_mean": 0.08171275900000183,
+    "prepare_per_image_mean": 0.025257635393194342
+   },
+   "all_pairs": 12497500,
+   "cheap_stage_seconds": {
+    "candidate_generation_one_operating_point_each": 26.177893400003086,
+    "feature_extraction_decode_included": 108.41969249999966
+   },
+   "extrapolation_all_pairs_primary_seconds": 535502.9779806674,
+   "images": 5000,
+   "labels": {
+    "extrapolation": "all pairs x random-pair mean",
+    "projection": "|P| x candidate-sample mean"
+   },
+   "primary_verifier_seconds_per_pair": {
+    "candidate_sample_mean": 0.052940088499963164,
+    "candidate_sample_pairs": 200,
+    "random_pairs": 200,
+    "random_real_pairs_mean": 0.0428488080000534
+   },
+   "projection_primary_verification_seconds": {
+    "EXACT": 0.0,
+    "M1": 225.2071364788433,
+    "M2_A1": 372299.7429936015,
+    "M2_B": 1589.684977476894,
+    "M3": 1596.4083687163893,
+    "dHash": 293.97631144029543
+   }
+  }
+ },
+ "machine": {
+  "cpus": 12,
+  "numpy": "2.5.1",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10"
+ },
+ "mode": "full",
+ "note": "single process, run after all parallel jobs; timings are not reproducible bit for bit"
+}

@@ -1,0 +1,245 @@
+{
+ "all_passed": false,
+ "cells_audited": [
+  "ladder_d1_n1000",
+  "ladder_d1_n2500",
+  "ladder_d1_n5000",
+  "ladder_d1_n10000",
+  "variant_d1",
+  "d3b_d1",
+  "ext_d1",
+  "ladder_d2_n1000",
+  "ladder_d2_n2500",
+  "ladder_d2_n5000",
+  "ladder_d2_n10000",
+  "variant_d2",
+  "d3b_d2",
+  "ext_d2",
+  "ladder_d3_n1000",
+  "ladder_d3_n2500",
+  "ladder_d3_n5000",
+  "ladder_d3_n10000",
+  "variant_d3",
+  "d3b_d3",
+  "ext_d3"
+ ],
+ "checks": {
+  "A0 results file and every part exist": {
+   "pass": true
+  },
+  "A1 split hashes recomputed with separate code equal the design; dev and test disjoint": {
+   "pass": true
+  },
+  "A10 a fresh process reproduces tau_B and the smallest-rung results of draw 1 byte for byte": {
+   "pass": false,
+   "returncode": 1,
+   "stderr_tail": " \"D:\\losless data\\repo\\phase3\\runner.py\", line 132, in guard\n    raise DiskGuard(f\"free disk fell below the run guard: C: {c:.2f} GB (min {MIN_FREE_C_GB}), D: {d:.2f} GB (min {MIN_FREE_D_GB})\")\nphase3.runner.DiskGuard: free disk fell below the run guard: C: 0.90 GB (min 1.5), D: 201.62 GB (min 3.0)\n"
+  },
+  "A2 candidate-set SHA-256 recomputed independently equals the run's for every audited set": {
+   "cells_audited": 21,
+   "mismatches": [],
+   "pass": true
+  },
+  "A2 persisted candidate sets equal the independent ones (differences only for pairs within 1e-9 of the set's threshold)": {
+   "near_threshold_flips": {},
+   "pass": true
+  },
+  "A2 recall, reduction, original/transform splits, per-transformation recall and gate verdicts equal": {
+   "mismatches": [],
+   "pass": true
+  },
+  "A3 aggregated strict ladder verdicts equal the conjunction of the per-cell verdicts": {
+   "pass": true
+  },
+  "A4 tau_B recomputed from the dev files equals the stored value and reaches dev recall 0.97": {
+   "d1": {
+    "recomputed": 0.6236409002884092,
+    "stored": 0.6236409002884088
+   },
+   "d1_ext": {
+    "recomputed": 0.7409505813316426,
+    "stored": 0.7409505813316416
+   },
+   "d2": {
+    "recomputed": 0.6436204203005786,
+    "stored": 0.6436204203005785
+   },
+   "d2_ext": {
+    "recomputed": 0.6818231775184799,
+    "stored": 0.6818231775184794
+   },
+   "d3": {
+    "recomputed": 0.6664943548320348,
+    "stored": 0.6664943548320335
+   },
+   "d3_ext": {
+    "recomputed": 0.7891977259051776,
+    "stored": 0.7891977259051779
+   },
+   "pass": true
+  },
+  "A5 every labels_opened event is preceded by its candidate_hashes_final event": {
+   "events": 69,
+   "pass": true
+  },
+  "A5 tau_B (all draws, both pools) was written before the first ladder image was built and after the unlock": {
+   "pass": true
+  },
+  "A5 the approval file exists and records the head commit": {
+   "pass": true
+  },
+  "A6 every photograph in the evaluated sets lies in the intended split (test for full, dev for rehearsal)": {
+   "pass": true
+  },
+  "A7 seeds, tau, aligned configuration and rung tables equal the frozen values": {
+   "pass": true
+  },
+  "A8 git diff against the design commit is empty for every frozen path": {
+   "pass": true,
+   "paths": [
+    "phase0",
+    "cc_dedup",
+    "baselines",
+    "phase2",
+    "phase2b",
+    "results/phase1c_results.json",
+    "docs/phase1c_design.md",
+    "docs/phase2_design.md",
+    "docs/phase2b_design.md",
+    "experiments/run_phase1c.py",
+    "experiments/run_pilot.py"
+   ]
+  },
+  "A9 no label field is reachable from signature, feature, hash, block-wise or candidate-stage code": {
+   "findings": [],
+   "pass": true
+  }
+ },
+ "mode": "full",
+ "near_threshold_flips_per_cell": {
+  "d3b_d1": {},
+  "d3b_d2": {},
+  "d3b_d3": {},
+  "ext_d1": {},
+  "ext_d2": {},
+  "ext_d3": {},
+  "ladder_d1_n1000": {},
+  "ladder_d1_n10000": {},
+  "ladder_d1_n2500": {},
+  "ladder_d1_n5000": {},
+  "ladder_d2_n1000": {},
+  "ladder_d2_n10000": {},
+  "ladder_d2_n2500": {},
+  "ladder_d2_n5000": {},
+  "ladder_d3_n1000": {},
+  "ladder_d3_n10000": {},
+  "ladder_d3_n2500": {},
+  "ladder_d3_n5000": {},
+  "variant_d1": {},
+  "variant_d2": {},
+  "variant_d3": {}
+ },
+ "near_threshold_pairs_within_1e-9_per_cell": {
+  "d3b_d1": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "d3b_d2": {
+   "M2_A1": 1,
+   "M2_B_x1.0": 0
+  },
+  "d3b_d3": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ext_d1": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ext_d2": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ext_d3": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d1_n1000": {
+   "M2_A1": 0,
+   "M2_B_x0.5": 0,
+   "M2_B_x0.75": 0,
+   "M2_B_x1.0": 0,
+   "M2_B_x1.25": 0,
+   "M2_B_x1.5": 0
+  },
+  "ladder_d1_n10000": {
+   "M2_A1": 2,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d1_n2500": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d1_n5000": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d2_n1000": {
+   "M2_A1": 0,
+   "M2_B_x0.5": 0,
+   "M2_B_x0.75": 0,
+   "M2_B_x1.0": 0,
+   "M2_B_x1.25": 0,
+   "M2_B_x1.5": 0
+  },
+  "ladder_d2_n10000": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d2_n2500": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d2_n5000": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d3_n1000": {
+   "M2_A1": 0,
+   "M2_B_x0.5": 0,
+   "M2_B_x0.75": 0,
+   "M2_B_x1.0": 0,
+   "M2_B_x1.25": 0,
+   "M2_B_x1.5": 0
+  },
+  "ladder_d3_n10000": {
+   "M2_A1": 1,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d3_n2500": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "ladder_d3_n5000": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "variant_d1": {
+   "M2_A1": 1,
+   "M2_B_x1.0": 0
+  },
+  "variant_d2": {
+   "M2_A1": 0,
+   "M2_B_x1.0": 0
+  },
+  "variant_d3": {
+   "M2_A1": 1,
+   "M2_B_x1.0": 0
+  }
+ },
+ "statements": [
+  "The run's computation (block-wise Gram identity, phase3/blockwise.py, as pre-registered) is the OFFICIAL one. The audit's scipy cdist route is an independent cross-check and never replaces the run's candidate sets or results.",
+  "A pair whose distance is within 1e-9 of a threshold may fall on either side of it between the two routes; the audit accepts a difference only for such pairs and then scores the run's persisted set. Per-cell counts of such pairs and of actual flips are recorded.",
+  "Limitation: the verifier metrics of the parallel runs (true-pair verification, false-accept samples, tau_al, the end-to-end graph) are NOT recomputed by this audit; they are covered only by the bitwise exactness assertions recorded in the results (parallel vs single-process on seeded samples)."
+ ]
+}

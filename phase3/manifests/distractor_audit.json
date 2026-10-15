@@ -1,0 +1,141 @@
+{
+ "purpose": "hidden near-duplicate audit of the Phase 3 distractor pool (docs/phase3_dataset_plan.md 8.4)",
+ "embedding_model": {
+  "name": "DINOv2 ViT-S/14 (CLS token, 384-d)",
+  "loaded_via": "torch.hub.load('facebookresearch/dinov2', 'dinov2_vits14')",
+  "weights_url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_pretrain.pth",
+  "weights_sha256": "b938bf1bc15cd2ec0feacfe3a1bb553fe8ea9ca46a7e1d8d00217f29aef60cd9",
+  "weights_bytes_expected": 88283115,
+  "torch_version": "2.12.1+cpu",
+  "weights_licence": {
+   "name": "Apache License 2.0",
+   "evidence": [
+    "README 'License' section of github.com/facebookresearch/dinov2: 'DINOv2 code and model weights are released under the Apache License 2.0. See LICENSE for additional details.'",
+    "LICENSE file of the same repository is the Apache License, Version 2.0, January 2004"
+   ],
+   "checked": "2026-10-12",
+   "scope_note": "other models in that repository (XRay-DINO weights, Cell-DINO code) carry different terms and are not used"
+  },
+  "not_sscd_not_phash": true,
+  "weights_bytes_on_disk": 88283115,
+  "weights_size_matches_expected": true
+ },
+ "preprocessing": "whole image resized to 224x224 bicubic, ImageNet mean/std, no crop",
+ "declared_rules": {
+  "flag_threshold_cosine": 0.9,
+  "report_thresholds": [
+   0.8,
+   0.85,
+   0.9,
+   0.95,
+   0.98
+  ],
+  "pair_manifest_min_cosine": 0.85,
+  "manual_check": "30 closest overall + 10 closest distractor-Copydays pairs",
+  "no_files_deleted": true
+ },
+ "initial_pool_audit": {
+  "pool": {
+   "distractors": 10000,
+   "copydays_originals": 157,
+   "total": 10157
+  },
+  "results": {
+   "pairs_at_or_above": {
+    "0.8": 26983,
+    "0.85": 20627,
+    "0.9": 10786,
+    "0.95": 5155,
+    "0.98": 2055
+   },
+   "flagged_pairs_by_kind": {
+    "distractor-distractor": 10785,
+    "copydays-copydays": 1
+   },
+   "nearest_neighbour_cosine_min_p1_median_p99_max": [
+    0.24400100111961365,
+    0.35472116351127625,
+    0.5773862600326538,
+    0.9982354044914246,
+    0.9999606609344482
+   ],
+   "pairs_in_manifest": 20627
+  },
+  "outputs": {
+   "pairs_manifest": "phase3/manifests/distractor_audit_pairs.jsonl",
+   "contact_sheets_and_embeddings": "phase3/artifacts/audit/ (gitignored)"
+  },
+  "manual_checks_done": {
+   "30_closest_pairs_overall": "all 30 are flat colour-gradient images, not photographs (cosine 0.9990-1.0000)",
+   "10_closest_distractor_copydays_pairs": "closest cosine 0.8618; all 10 are DIFFERENT photographs of similar scenes; no distractor is a copy of a Copydays original",
+   "12_non_flat_pairs_at_or_above_0.90": "viewed after the fact; all different photographs of similar subjects (moon, star fields, stadiums, Grand Canyon, Taj Mahal, show jumping, hockey); the closest (0.946) is two frames from what appears to be one fixed camera at different times, a distinct image under the 'same scene, next frame' policy",
+   "not_inspected": "pairs with cosine 0.85-0.90, and all pairs below 0.85"
+  },
+  "post_hoc_findings": {
+   "label": "POST-HOC and exploratory: the declared flag rule did not anticipate this; thresholds below were not pre-registered",
+   "flat_gradient_images": {
+    "finding": "a measurable share of the sampled 'distractors' are flat colour-gradient images, not photographs (near-identical tiny files, about 0.013 bytes/pixel)",
+    "measure": "detail energy = mean |gray - (16x16-area-resampled then bilinear-upsampled gray)|",
+    "counts_by_detail_threshold": {
+     "<0.5": 237,
+     "<1.0": 242,
+     "<1.5": 250,
+     "<2.0": 255,
+     "<3.0": 277
+    },
+    "of_10000": "242 (2.4%) below 1.0",
+    "explains_flagged_pairs": "10,773 of the 10,785 flagged distractor pairs (cosine >= 0.90) have both images below 1.0",
+    "flagged_pairs_among_real_photos": 12,
+    "list": "phase3/manifests/distractor_audit_low_detail.jsonl (all images below 3.0, with measured values)"
+   },
+   "consequence": "such images are degenerate distractors: they look alike to DINOv2 and would produce many false positives for any similarity method, and are not natural-photo negatives",
+   "action_taken": "NONE. No file was deleted or edited. An exclusion rule (and resampling to restore 10,000) is a design decision for the Phase 3 design freeze"
+  }
+ },
+ "final_pool_audit": {
+  "pool_manifest": "phase3/manifests/distractor_pool.jsonl (10,000 images after the content-only exclusion; see distractor_pool.summary.json)",
+  "pool": {
+   "distractors": 10000,
+   "copydays_originals": 157,
+   "total": 10157
+  },
+  "sha256_distinct_distractors": 10000,
+  "embeddings": {
+   "reused_from_initial_audit": 9921,
+   "newly_embedded": 236
+  },
+  "results": {
+   "pairs_at_or_above": {
+    "0.8": 436,
+    "0.85": 107,
+    "0.9": 13,
+    "0.95": 0,
+    "0.98": 0
+   },
+   "flagged_pairs_by_kind": {
+    "distractor-distractor": 12,
+    "copydays-copydays": 1
+   },
+   "nearest_neighbour_cosine_min_p1_median_p99_max": [
+    0.24400100111961365,
+    0.35472116351127625,
+    0.57443767786026,
+    0.8597685790061954,
+    0.9460371732711792
+   ],
+   "pairs_in_manifest": 107,
+   "band_0.85_0.90_pairs": 94,
+   "band_sample_size": 24
+  },
+  "outputs": {
+   "pairs_manifest": "phase3/manifests/distractor_pool_audit_pairs.jsonl",
+   "contact_sheets": "phase3/artifacts/audit/final_sheet_*.png (gitignored)"
+  },
+  "manual_checks_done": {
+   "30_closest_pairs_overall": "viewed; all different photographs of similar subjects (stadiums, hockey, Taj Mahal, waves, manuscripts, fireworks, concerts, swimming, space shuttle); the only next-frame cases are the fixed-camera cluster; one pair is two DIFFERENT Copydays originals (205800 and 207800, two views of the Verona arena, cosine 0.8959)",
+   "10_closest_distractor_copydays_pairs": "sheet written; the initial-pool check (closest 0.8618) found different photographs; no distractor-Copydays pair reaches 0.90 in the final pool",
+   "band_0.85_0.90": "seeded sample of 24 of 94 pairs (seed 12345) viewed: 0 duplicates; all different photographs of similar subjects, except 2 pairs (cosine 0.8729 and 0.8661) that appear to be fixed-camera frames. Not exhaustive: the other 70 band pairs and everything below 0.85 were not inspected"
+  },
+  "verdict": "no pair reaches 0.95; 12 distractor pairs at or above 0.90, all previously viewed and none a duplicate; no distractor is a copy of a Copydays original"
+ }
+}
