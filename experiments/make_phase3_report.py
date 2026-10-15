@@ -33,6 +33,7 @@ JSON_FILES = {
     "launch": "phase3/artifacts/run_full/launch_manifest.json",
     "resume1": "phase3/artifacts/run_full/resume_1.json",
     "resume2": "phase3/artifacts/run_full/resume_2.json",
+    "pool_audit": "phase3/manifests/distractor_audit.json",
 }
 EVENTS = "phase3/artifacts/run_full/events.jsonl"
 SIZES = (1000, 2500, 5000, 10000)
@@ -163,6 +164,8 @@ def build() -> None:
         ["Code used for the test-split run (all parts)", "`47f1b879c51808fec6f9b7b40e30c8ee18932c54`"],
         ["Audit script (counts and scope statements added after the run; no check logic changed)", "`32e9447`"],
         ["Pre-registered outputs", "`5f0839a`"],
+        ["Test-only change after the test split opened (lock tests independent of the local approval file)", "`fad25e1`"],
+        ["Pool curation (content-only exclusion of flat images) and DINOv2 audit", "`ebf94f9`"],
         ["Post-hoc script (committed before its first run)", "`002af36`, SHA-256 `2ecb0390aac3a6134516d3eba3e49994dd383c390cfefe7f5a6c60e5db7cc57d`"],
         ["Post-hoc output", "`da3c9d3`"],
         ["Design (frozen before any test-split run)", "`docs/phase3_design.md` with Addenda A and B"],
@@ -200,6 +203,23 @@ def build() -> None:
       f"M2_A1 (not gated) fails D3a on reduction only (its recall is {v(lambda J: mm(lad_vals(J, 'M2_A1', 'recall')), rng3)} and its reduction "
       f"{v(lambda J: mm(lad_vals(J, 'M2_A1', 'reduction')), rng3)}); on D3b it fails both recall ({v(lambda J: mm([d3b(J, d, 'M2_A1')['recall'] for d in DRAWS]), rng3)}) "
       "and reduction.")
+    P("**How \"true\" and \"non-true\" pairs are defined.** In D3a a pair is true iff both images come from the same source photograph "
+      "(the source and its six transformed copies: 21 true pairs per family); in D3b iff both images are in the same Copydays block. **Every other "
+      "pair is non-true by construction**, including every pair that involves a distractor photograph. The distractor pool was curated on content only "
+      "(commit `ebf94f9`: 236 solid-colour images were excluded by a rule that uses no labels and no method output) and was **not** filtered for natural "
+      "near-duplicates. It was audited for hidden near-duplicates with DINOv2 ViT-S/14 embeddings (flag rule: cosine ≥ 0.90; "
+      "`phase3/manifests/distractor_audit.json`). In the final pool "
+      f"{v(lambda J: J['pool_audit']['final_pool_audit']['results']['pairs_at_or_above']['0.9'], i0)} pairs reach 0.90 "
+      f"({v(lambda J: J['pool_audit']['final_pool_audit']['results']['flagged_pairs_by_kind']['distractor-distractor'], i0)} distractor–distractor, "
+      f"{v(lambda J: J['pool_audit']['final_pool_audit']['results']['flagged_pairs_by_kind']['copydays-copydays'], i0)} between two different Copydays originals) and "
+      f"{v(lambda J: J['pool_audit']['final_pool_audit']['results']['pairs_at_or_above']['0.95'], i0)} reach 0.95; the flagged pairs and the 30 closest pairs were viewed by hand "
+      f"and none was a duplicate, and a seeded sample of {v(lambda J: J['pool_audit']['final_pool_audit']['results']['band_sample_size'], i0)} of the "
+      f"{v(lambda J: J['pool_audit']['final_pool_audit']['results']['band_0.85_0.90_pairs'], i0)} pairs in the 0.85–0.90 band contained no duplicate. "
+      "The other pairs in that band and everything below cosine 0.85 were not inspected, and a DINOv2 embedding would not necessarily flag every kind "
+      "of near-duplicate. A small cluster of five fixed-camera frames is kept as distinct images under the frozen labelling policy "
+      "(\"same scene, next frame\" is a distinct image). Some non-true candidate pairs could therefore be unlabelled true duplicates; this would "
+      "affect precision-type quantities (false-accept rates, cluster precision, candidates per true pair) and would not change recall, which counts "
+      "labelled true pairs only.")
     rows = []
     for label, m, nm in METHODS:
         rows.append([label,
@@ -389,7 +409,14 @@ def build() -> None:
     table("e2e_D", ["Draw", "Kwik, full graph: D (mean ± sd, 20 seeds)", "clusters", "Kwik, candidate graph: D", "clusters",
                     "Union-find, full graph: D", "clusters", "Union-find, candidate graph: D", "clusters"], rows)
     P("Observation over three draws at n = 1,000, not a general claim: on the full Phase 1c graph, union-find merges everything into one cluster; "
-      "KwikCluster returns a few hundred clusters with large seed-to-seed spread; on the candidate graph KwikCluster is nearly seed-independent. "
+      "KwikCluster returns a few hundred clusters with large seed-to-seed spread; on the candidate graph KwikCluster is much less seed-dependent than on the full graph "
+      f"(standard deviation of D over the 20 seeds in draws 1, 2 and 3: "
+      f"{v(lambda J: R(J)['end_to_end']['d1']['clustering']['kwik_candidate_graph']['D_sd'], i0)}, "
+      f"{v(lambda J: R(J)['end_to_end']['d2']['clustering']['kwik_candidate_graph']['D_sd'], i0)} and "
+      f"{v(lambda J: R(J)['end_to_end']['d3']['clustering']['kwik_candidate_graph']['D_sd'], i0)} on the candidate graph, against "
+      f"{v(lambda J: R(J)['end_to_end']['d1']['clustering']['kwik_full_graph']['D_sd'], i0)}, "
+      f"{v(lambda J: R(J)['end_to_end']['d2']['clustering']['kwik_full_graph']['D_sd'], i0)} and "
+      f"{v(lambda J: R(J)['end_to_end']['d3']['clustering']['kwik_full_graph']['D_sd'], i0)} on the full graph). "
       "Because D(C) is measured against the full graph, a lower D on the candidate graph says that the candidate graph disagrees with the full graph "
       "less, which here mostly reflects the full graph's many false positive edges. It is not a statement that the candidate graph is closer to "
       "ground truth; the post-hoc section 9a scores the candidate-graph clusterings against ground truth directly.")
@@ -483,6 +510,8 @@ def build() -> None:
       "within 1e-9 of a threshold (different rounding between the two distance routines) and a rounding tolerance in the tau_B recomputation. Both "
       "were fixed in the audit script, not in the run code.\n"
       "- After the run, the audit script gained the per-cell near-threshold counts and two scope statements (commit `32e9447`); no check logic changed.\n"
+      "- Commit `fad25e1`, made after the test split was opened, changed three unit tests so that they no longer assume the approval file is absent "
+      "(test-only; no run, audit or analysis code was touched).\n"
       "- The first rehearsal launch was stopped and restarted to add persistence of every operating point at the smallest rung, "
       "before any test-split access.\n"
       "- Two files in the run record (`launch_manifest.json`, `resume_*.json`) were written with a UTF-8 byte-order mark; the generator reads them with "
@@ -603,6 +632,11 @@ def build() -> None:
       "- The aligned verifier's threshold protocol (D4a) is unstable, its AUC is not informative, and its results on native attacks show many "
       "alignment failures; it never gated.\n"
       "- Timing is from one laptop, single process, with noisy per-pair costs; projections and extrapolations are order-of-magnitude only.\n"
+      "- The post-hoc clustering analysis (section 9a and 9c) covers n = 1,000, three draws, and the candidate graph only; the full-graph KwikCluster "
+      "was not rerun, so there is no ground-truth clustering comparison on the full graph.\n"
+      "- Non-true pairs are defined by construction (section 1). The distractor pool was audited, not filtered, for natural near-duplicates, and the "
+      "audit was only partly inspected by hand, so some non-true candidate pairs could be unlabelled true duplicates (this would affect false-accept "
+      "rates, cluster precision and candidates per true pair, not recall).\n"
       "- The audit does not recompute the parallel verifier metrics (section 7); the bootstrap holds tau_B fixed and treats the three draws as "
       "independent although they share some families; the post-hoc analyses are exploratory.\n"
       "- Nothing here supports a claim of generality or novelty.")

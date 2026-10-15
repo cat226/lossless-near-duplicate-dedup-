@@ -12,6 +12,8 @@ Results hold for these datasets only (a 10,000-photograph Flickr-derived pool wi
 | Code used for the test-split run (all parts) | `47f1b879c51808fec6f9b7b40e30c8ee18932c54` |
 | Audit script (counts and scope statements added after the run; no check logic changed) | `32e9447` |
 | Pre-registered outputs | `5f0839a` |
+| Test-only change after the test split opened (lock tests independent of the local approval file) | `fad25e1` |
+| Pool curation (content-only exclusion of flat images) and DINOv2 audit | `ebf94f9` |
 | Post-hoc script (committed before its first run) | `002af36`, SHA-256 `2ecb0390aac3a6134516d3eba3e49994dd383c390cfefe7f5a6c60e5db7cc57d` |
 | Post-hoc output | `da3c9d3` |
 | Design (frozen before any test-split run) | `docs/phase3_design.md` with Addenda A and B |
@@ -28,6 +30,7 @@ Results hold for these datasets only (a 10,000-photograph Flickr-derived pool wi
 | `phase3/artifacts/run_full/launch_manifest.json` | dfec746af38d4afed4765444f1c1e695bdd15bcd67e07df47d672d30ccc86ad2 |
 | `phase3/artifacts/run_full/resume_1.json` | 3212f217a94f5a80bbc6d5184be32acbfe61b753c97ab78626ae16ab55f594d7 |
 | `phase3/artifacts/run_full/resume_2.json` | a61b41927966bbee918e5caa1397bea4e1e2b4bbc34ff48cd73fb7d522f2af6a |
+| `phase3/manifests/distractor_audit.json` | 23bf08f8089f8f1bc6b05f8a767dc2bc17cc1bc5ddc1bca6b1c84f8ce9ed799e |
 <!-- /table:prov_hashes -->
 
 Run launch (UTC): 2026-10-14T14:59:50Z; commit recorded in the launch manifest: `47f1b87`; the test split was unlocked after all preflight gates passed, and 3 preflight passes are in the event log (launch plus two resumes, all on the same commit).
@@ -48,6 +51,8 @@ Verdicts are per method and per dataset and are never pooled. **D3a** (injected 
 <!-- /table:verdicts -->
 
 Reading: on D3a, M2 at tau_B and M3 pass; M1, dHash and the exact hash fail. On D3b every method fails, including M2 at tau_B and M3. M2_A1 (not gated) fails D3a on reduction only (its recall is 0.999–1.000 and its reduction 0.434–0.457); on D3b it fails both recall (0.911–0.911) and reduction.
+
+**How "true" and "non-true" pairs are defined.** In D3a a pair is true iff both images come from the same source photograph (the source and its six transformed copies: 21 true pairs per family); in D3b iff both images are in the same Copydays block. **Every other pair is non-true by construction**, including every pair that involves a distractor photograph. The distractor pool was curated on content only (commit `ebf94f9`: 236 solid-colour images were excluded by a rule that uses no labels and no method output) and was **not** filtered for natural near-duplicates. It was audited for hidden near-duplicates with DINOv2 ViT-S/14 embeddings (flag rule: cosine ≥ 0.90; `phase3/manifests/distractor_audit.json`). In the final pool 13 pairs reach 0.90 (12 distractor–distractor, 1 between two different Copydays originals) and 0 reach 0.95; the flagged pairs and the 30 closest pairs were viewed by hand and none was a duplicate, and a seeded sample of 24 of the 94 pairs in the 0.85–0.90 band contained no duplicate. The other pairs in that band and everything below cosine 0.85 were not inspected, and a DINOv2 embedding would not necessarily flag every kind of near-duplicate. A small cluster of five fixed-camera frames is kept as distinct images under the frozen labelling policy ("same scene, next frame" is a distinct image). Some non-true candidate pairs could therefore be unlabelled true duplicates; this would affect precision-type quantities (false-accept rates, cluster precision, candidates per true pair) and would not change recall, which counts labelled true pairs only.
 
 <!-- table:fail_counts -->
 | Method | D3a cells failing recall (of 15) | failing reduction (of 15) | failing per-transformation recall (of 15) | recall above random control in every cell |
@@ -252,7 +257,7 @@ Setup (section 8 of the design): full graph from the frozen Phase 1c verifier at
 | 3 | 20,241 ± 13,339 | 429.4 | 13,727 ± 9 | 758.2 | 64,419 | 1 | 14,274 | 588 |
 <!-- /table:e2e_D -->
 
-Observation over three draws at n = 1,000, not a general claim: on the full Phase 1c graph, union-find merges everything into one cluster; KwikCluster returns a few hundred clusters with large seed-to-seed spread; on the candidate graph KwikCluster is nearly seed-independent. Because D(C) is measured against the full graph, a lower D on the candidate graph says that the candidate graph disagrees with the full graph less, which here mostly reflects the full graph's many false positive edges. It is not a statement that the candidate graph is closer to ground truth; the post-hoc section 9a scores the candidate-graph clusterings against ground truth directly.
+Observation over three draws at n = 1,000, not a general claim: on the full Phase 1c graph, union-find merges everything into one cluster; KwikCluster returns a few hundred clusters with large seed-to-seed spread; on the candidate graph KwikCluster is much less seed-dependent than on the full graph (standard deviation of D over the 20 seeds in draws 1, 2 and 3: 5, 7 and 9 on the candidate graph, against 8,638, 13,548 and 13,339 on the full graph). Because D(C) is measured against the full graph, a lower D on the candidate graph says that the candidate graph disagrees with the full graph less, which here mostly reflects the full graph's many false positive edges. It is not a statement that the candidate graph is closer to ground truth; the post-hoc section 9a scores the candidate-graph clusterings against ground truth directly.
 
 ## 6. Cost: timing, projections and extrapolations
 
@@ -349,6 +354,7 @@ Other departures from the plan as originally written, all recorded in `docs/phas
 - The run executed from a verified copy of the repository on D: (943 files, SHA-256 identical to the C: tree), because C: had no free space; the start thresholds were C: ≥ 2 GB and D: ≥ 6 GB, with a runtime guard at 1.5 GB and 3 GB.
 - Before the test split was opened, a dev-split-only rehearsal and its audit exposed two issues in the audit script itself: a tolerance for pairs within 1e-9 of a threshold (different rounding between the two distance routines) and a rounding tolerance in the tau_B recomputation. Both were fixed in the audit script, not in the run code.
 - After the run, the audit script gained the per-cell near-threshold counts and two scope statements (commit `32e9447`); no check logic changed.
+- Commit `fad25e1`, made after the test split was opened, changed three unit tests so that they no longer assume the approval file is absent (test-only; no run, audit or analysis code was touched).
 - The first rehearsal launch was stopped and restarted to add persistence of every operating point at the smallest rung, before any test-split access.
 - Two files in the run record (`launch_manifest.json`, `resume_*.json`) were written with a UTF-8 byte-order mark; the generator reads them with `utf-8-sig`.
 
@@ -468,6 +474,8 @@ The family size is 7, so a giant cluster of 7 is a complete family. The perfect 
 - The Phase 1c verifier is weak on real photographs (it accepts only about 0.57 of true pairs, and falsely accepts about 0.23 of sampled non-true M2 candidate pairs); end-to-end results are conditional on it, and D(C) against the full graph is not a quality-versus-truth measure (section 5).
 - The aligned verifier's threshold protocol (D4a) is unstable, its AUC is not informative, and its results on native attacks show many alignment failures; it never gated.
 - Timing is from one laptop, single process, with noisy per-pair costs; projections and extrapolations are order-of-magnitude only.
+- The post-hoc clustering analysis (section 9a and 9c) covers n = 1,000, three draws, and the candidate graph only; the full-graph KwikCluster was not rerun, so there is no ground-truth clustering comparison on the full graph.
+- Non-true pairs are defined by construction (section 1). The distractor pool was audited, not filtered, for natural near-duplicates, and the audit was only partly inspected by hand, so some non-true candidate pairs could be unlabelled true duplicates (this would affect false-accept rates, cluster precision and candidates per true pair, not recall).
 - The audit does not recompute the parallel verifier metrics (section 7); the bootstrap holds tau_B fixed and treats the three draws as independent although they share some families; the post-hoc analyses are exploratory.
 - Nothing here supports a claim of generality or novelty.
 
