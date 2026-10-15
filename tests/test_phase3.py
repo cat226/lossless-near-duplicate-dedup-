@@ -106,8 +106,8 @@ def test_startup_verification_stops_on_a_tampered_hash(tmp_path, monkeypatch):
         sp.verify_startup()
 
 
-def test_test_split_is_locked_without_approval():
-    assert not sp.TEST_APPROVAL_FILE.exists()
+def test_test_split_is_locked_without_approval(tmp_path, monkeypatch):
+    monkeypatch.setattr(sp, "TEST_APPROVAL_FILE", tmp_path / "no_approval_here")  # independent of the local approval file
     s = sp.verify_startup()
     for fn in (s.test_sources, s.test_singletons, s.test_photos):
         with pytest.raises(PermissionError):
